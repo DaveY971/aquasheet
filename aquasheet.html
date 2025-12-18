@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaSheet v1 | Táblázatok</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2dd4bf;
+            --primary-dark: #14b8a6;
+            --bg: #020617;
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { box-sizing: border-box; transition: all 0.3s ease; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(45, 212, 191, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(45, 212, 191, 0.05) 0%, transparent 40%);
+            color: var(--text-main);
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Navbar / Logo Section */
+        nav {
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            background: rgba(45, 212, 191, 0.1);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid rgba(45, 212, 191, 0.2);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            line-height: 1.1;
+            margin: 25px 0;
+            background: linear-gradient(to bottom, #fff 40%, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        /* Download Button */
+        .cta-button {
+            background: var(--primary);
+            color: #020617;
+            padding: 18px 45px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.1rem;
+            box-shadow: 0 0 25px rgba(45, 212, 191, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(45, 212, 191, 0.6);
+            background: #fff;
+        }
+
+        /* Features Section */
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin: 60px 0 40px 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        /* Screenshot Gallery */
+        .screenshot-gallery {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .gallery-item {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(45, 212, 191, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .gallery-item p {
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        /* Specs Table */
+        .specs-container {
+            max-width: 800px;
+            margin: 100px auto;
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .spec-row:last-child { border: none; }
+        .spec-label { color: var(--text-muted); }
+        .spec-value { font-weight: 600; color: var(--primary); }
+
+        footer {
+            text-align: center;
+            padding: 100px 20px;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 50px;
+        }
+
+        .footer-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            background: linear-gradient(90deg, #2dd4bf, #f8fafc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-container">
+            <img src="aquasheetbc.png" alt="AquaSheet Logo" class="logo-img">
+            <span>AquaSheet</span>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <span class="badge">v1.0 Most elérhető</span>
+        <h1>Okos Táblázatkezelő,<br>Egyszerűen.</h1>
+        <p>Könnyűsúlyú asztali alkalmazás a gyorsaság és adatbiztonság jegyében. Nincs felhő, nincs előfizetés – csak tiszta hatékonyság.</p>
+        <a href="aquasheet_v1.exe" class="cta-button">Program letöltése</a>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">✨ Mire képes az AquaSheet?</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Dinamikus Kezelés</h3>
+                <p>Sorok és oszlopok hozzáadása villámgyorsan a beépített Táblázat Kezelő panelen keresztül.</p>
+            </div>
+            <div class="card">
+                <h3>Profi Formázás</h3>
+                <p>Egyedi színek, betűstílusok és igazítások minden egyes cellához.</p>
+            </div>
+            <div class="card">
+                <h3>Adatvédelem</h3>
+                <p>Intelligens algoritmus figyelmeztet, ha véletlenül adatot tartalmazó cellát törölnél.</p>
+            </div>
+            <div class="card">
+                <h3>.mtk Formátum</h3>
+                <p>Saját mentési motor, ami megőrzi a teljes vizuális elrendezést és formázást.</p>
+            </div>
+            <div class="card">
+                <h3>Native Dark Mode</h3>
+                <p>Szemkímélő türkiz-fekete felület a hosszú éjszakai munkákhoz.</p>
+            </div>
+            <div class="card">
+                <h3>Zéró Adatgyűjtés</h3>
+                <p>Teljesen offline működés. Az adataid nálad maradnak, nem a felhőben.</p>
+            </div>
+        </div>
+
+        <section class="screenshot-gallery">
+            <h2 class="section-title">📸 Galéria</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="aquasheetfooldal.png" alt="AquaSheet Screenshot 1">
+                    <p>Letisztult kezelőfelület</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="aquasheetszerkeztes.png" alt="AquaSheet Screenshot 2">
+                    <p>Oszlop és sor beállítások</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="aquasheetszoveg.png" alt="AquaSheet Screenshot 3">
+                    <p>Szövegformázási beállítások</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="specs-container">
+            <h2 style="margin-top:0">🛠 Technikai Specifikációk</h2>
+            <div class="spec-row">
+                <span class="spec-label">Platform</span>
+                <span class="spec-value">Windows (Standalone EXE)</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Fájlformátum</span>
+                <span class="spec-value">.mtk (Rich Data)</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Telepítés</span>
+                <span class="spec-value">Nem szükséges (Portable)</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Ár</span>
+                <span class="spec-value">ingyenes (teljes hozzáférés)</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Gépigény</span>
+                <span class="spec-value">Nagyon alacsony</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Internetkapcsolat</span>
+                <span class="spec-value">Nem szükséges (Offline)</span>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p class="footer-quote">"AquaSheet – Ahol az adatok életre kelnek."</p>
+        <p style="color: var(--text-muted)">&copy; 2025-2026 AquaSheet Projects. Minden jog fenntartva. (By:DaveY971)</p>
+    </footer>
+
+</body>
+</html>
